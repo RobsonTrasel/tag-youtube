@@ -1,26 +1,32 @@
 import React from 'react';
 import logo from './logo.svg';
+import { useSpring, animated } from '@react-spring/web';
+import { useDrag } from 'react-use-gesture';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface TagCarouselProps {
+  tags: string[];
 }
 
-export default App;
+const TagCarousel: React.FC<TagCarouselProps> = ({ tags }) => {
+  const [{ x }, set] = useSpring(() => ({ x: 0 }));
+
+  const bind = useDrag(({ down, movement: [mx], cancel }) => {
+    if (mx > window.innerWidth / 2 || mx < -window.innerWidth / 2) {
+      cancel();
+    }
+    set({ x: down ? mx : 0, immediate: down });
+  });
+
+  return (
+      <animated.div className="carousel" style={{ x }}>
+        {tags.map((tag, index) => (
+            <div key={index} className="tag" {...bind()}>
+              {tag}
+            </div>
+        ))}
+      </animated.div>
+  );
+};
+
+export default TagCarousel;

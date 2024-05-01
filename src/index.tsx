@@ -1,15 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import TagCarousel from "./App";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const tags = ["Gaming", "Gaming", "Gaming", "Gaming", "Gaming", "Gaming", "Gaming", "Gaming", "Gaming", "Gaming", "Gaming", "Gaming", "Gaming",  "Gaming",  "Gaming",  "Gaming",  "Music", "Mobile Legends: Bang Bang", "Test drives", "Monkey D. Luffy", "Playlists", "Pistons", "Drag Racing", "Counter-Strike 2", "2000s", "Jon Bon Jovi", "League of Legends", "Brazilian"];
+
+
 root.render(
   <React.StrictMode>
-    <App />
+      <TagCarousel tags={tags} />
   </React.StrictMode>
 );
 
